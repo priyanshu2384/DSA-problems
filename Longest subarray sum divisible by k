@@ -1,0 +1,28 @@
+int longSubarrWthSumDivByK(int a[], int n, int k)
+    {
+        int arr[] = new int[k];
+        int prefix = 0;
+        int maxl = 0;
+        for(int i=0; i<k; i++) {
+            arr[i] = -2;
+        }
+        arr[0] = -1;
+        for(int i=0; i<a.length; i++) {
+            prefix = prefix + a[i];
+            int x= prefix%k;
+            if(x<0) {
+                if(arr[x+k]!=-2) {
+                    maxl = Math.max(maxl,i-arr[x+k]);
+                } else {
+                arr[x+k]=i;
+                }
+                continue;
+            }
+             if(arr[x]!=-2) {
+                    maxl = Math.max(maxl,i-arr[x]);
+                } else {
+                arr[x]=i;
+                }
+            
+        }
+       return maxl;
