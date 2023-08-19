@@ -1,0 +1,28 @@
+ public int lengthOfLongestSubstring(String s) {
+        if(s.length()==0) {
+            return 0;
+        } 
+        StringBuilder a = new StringBuilder("");
+        a.append(s.charAt(0));
+        int max = 1;
+        boolean arr[] = new boolean[128];
+        arr[s.charAt(0)] = true;
+    
+        for(int i=1; i<s.length(); i++) {
+            if(arr[s.charAt(i)]) {
+                max = Math.max(max,a.length());
+        
+                while(a.charAt(0)!=s.charAt(i)) {
+                    arr[a.charAt(0)]=false;
+                    a.deleteCharAt(0);
+                   
+                }
+                a.deleteCharAt(0);
+            }
+             a.append(s.charAt(i));
+            arr[s.charAt(i)] = true;;
+            
+        }
+        max = Math.max(a.length(),max);
+        return max;
+    }
