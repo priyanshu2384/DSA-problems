@@ -1,0 +1,35 @@
+class NumArray {
+     
+    public int nums[];
+    public int x;
+    public int arr[];
+    public NumArray(int[] nums) {
+       this.nums = nums;
+       this.x = (int)Math.sqrt(nums.length) +1;
+        this.arr = new int[x];
+        for(int i=0; i<nums.length; i++) {
+            arr[i/x] += nums[i];
+        }
+    }
+    
+    public void update(int index, int val) {
+        int z = nums[index];
+        arr[index/x] -= z;
+        arr[index/x] += val;
+        nums[index] = val;
+    }
+    
+    public int sumRange(int left, int right) {
+        int sum = 0;
+        for(int i=left; i<=right; ) {
+            if(i%x==0 && i+x-1 <=right) {
+                sum += arr[i/x];
+                i+=x;
+            } else {
+                sum += nums[i];
+                i++;
+            }
+        }
+        return sum;
+    }
+}
