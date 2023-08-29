@@ -1,0 +1,44 @@
+public String minWindow(String s, String t) {
+        
+        if(s.length()<t.length() ) {
+            return "";
+        }
+       
+        int arr[] = new int[128];
+        int temp[] = new int[128];
+        
+        for(int i=0; i<t.length(); i++) {
+            arr[t.charAt(i)]++;
+        }
+        int n =Integer.MAX_VALUE;
+        int m = 0;
+        
+        int i=0; 
+        int count=0;
+        for(int j=0;j<s.length(); j++) {
+          if(temp[s.charAt(j)]<arr[s.charAt(j)]) {
+              count++;
+          }
+            temp[s.charAt(j)]++;
+            while(count==t.length()) {
+                if(n-m>j-i) {
+              m = i;
+              n = j;
+             }
+                temp[s.charAt(i)]--;
+                if(temp[s.charAt(i)]<arr[s.charAt(i)]) {
+                  count--;
+                }
+                i++;
+                
+            }
+                
+            
+        }
+        if(n==Integer.MAX_VALUE) {
+          return "";
+        }
+        StringBuilder ans = new StringBuilder(s.substring(m,n+1));
+        return ans.toString();
+        
+    }
