@@ -1,0 +1,26 @@
+public boolean isMatch(String s, String p) {
+        int si=0;
+        int pi=0;
+        int wc = -1;
+        int st=-1;
+        while(si<s.length()) {
+           if(pi<p.length() && (p.charAt(pi)=='?' || p.charAt(pi)==s.charAt(si))) {
+               si++;
+               pi++;
+           } else if(pi<p.length() && p.charAt(pi)=='*'){
+               wc = ++pi;
+               st = si;
+           } else if(wc==-1) {
+               return false;
+           } else {
+               pi = wc;
+               si = ++st;
+           }
+        }
+        for(int i=pi; i<p.length(); i++) {
+            if(p.charAt(i)!='*') {
+                return false;
+            }
+        }
+        return true;
+    }
