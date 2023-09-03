@@ -1,0 +1,27 @@
+public void nextPermutation(int[] nums) {
+        for(int i=nums.length-2; i>=0; i--) {            //beats 100%
+            int x=i+1;
+            if(nums[i]>=nums[x]) {
+                continue;
+            }
+            for(int v=x; v<=(x+nums.length-1)/2; v++) {
+                 int temp = nums[v];
+                 nums[v] = nums[nums.length-1-(v-x)];
+                  nums[nums.length-1-(v-x)] = temp;
+            }
+            while( x<nums.length && nums[i]>=nums[x]) {
+                x++;
+            }
+               int temp = nums[i];
+                nums[i] = nums[x];
+                nums[x] = temp;
+                return;
+         
+        }
+        for(int v=0; v<=(nums.length-1)/2; v++) {
+                 int temp = nums[v];
+                 nums[v] = nums[nums.length-1-v];
+                  nums[nums.length-1-v] = temp;
+            }
+      
+    }
