@@ -1,0 +1,55 @@
+public int helper(long[] nums, int start, int end) {
+        if(start>=end) {
+            return 0;
+        }
+        int mid = (start+end)/2;
+        int left = helper(nums,start,mid);
+        int right = helper(nums,mid+1,end);
+        int count = merge(nums,start,mid,end);
+        return left + right + count;
+    }
+
+    public int merge(long[] nums,int start, int mid, int end) {
+
+    int j=mid+1;
+    int sum = 0;
+    int i = start;
+    for(i=start; i<=mid; i++) {
+        while(j<=end && nums[i]>2*nums[j]) {
+         j++;
+        }
+        sum = sum + (j-(mid+1));
+    }
+
+    i=start;
+    j=mid+1;
+    int k = 0; 
+    long arr[] = new long[end-start+1];
+
+    while(i<=mid  && j<=end) {
+        if(nums[i]<nums[j]) {
+            arr[k]=nums[i];
+            i++;
+        } else {
+            arr[k]=nums[j];
+            j++;
+        }
+        k++;
+    }
+
+    while(i<=mid) {
+        arr[k++] = nums[i++];
+    }
+    while(j<=end) {
+        arr[k++] = nums[j++];
+    }
+
+    for(k=0,i=start;k<arr.length; k++,i++) {
+        nums[i] = arr[k];
+    }
+    return sum;
+    }
+    public int reversePairs(int[] nums) {
+     long[] longArray = Arrays.stream(nums).mapToLong(i -> i).toArray();
+     return helper(longArray,0,nums.length-1);
+    }
